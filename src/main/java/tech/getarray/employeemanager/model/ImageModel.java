@@ -20,17 +20,6 @@ public class ImageModel {
 	private String imageType;
 
 
-
-
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "id_employee", nullable = true)
-//	private Employee employee;
-//
-//
-//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinColumn(name = "id_employee_permis", nullable = true)
-//	private Employee employeePermis;
-
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,8 +31,6 @@ public class ImageModel {
 	@Column(name = "type")
 	private String type;
 
-//	@Column(name = "picByte", length = 1000)
-//	private byte[] picByte;
 	@Column(name = "picByte")
 	private String picByte;
 

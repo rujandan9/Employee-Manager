@@ -36,8 +36,6 @@ public class EmployeeController {
         return imaginea;
     }
 
-
-
     @PostMapping("/employee")
     Employee newEmployee(@RequestBody Employee newEmployee) {
         return employeeRepository.save(newEmployee);

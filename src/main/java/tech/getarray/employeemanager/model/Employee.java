@@ -26,21 +26,6 @@ public class Employee implements Serializable {
     private String telefon;
     private String observatii;
 
-//    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL,
-//            fetch = FetchType.EAGER, optional = false)
-//    private Permis permis;
-//
-//    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL,
-//            fetch = FetchType.EAGER, optional = false)
-//    private ImageModel image;
-
-//    @OneToOne(mappedBy = "employees", fetch = FetchType.EAGER)
-//    @JoinColumn(name = "id", nullable = false)
-//    private ImageModel permis;
-
-
-
-
     public Employee() {
     }
 
