@@ -31,7 +31,8 @@ public class ImageModel {
 	@Column(name = "type")
 	private String type;
 
-	@Column(name = "picByte")
+	@Lob
+	@Column(name = "picByte", columnDefinition = "BLOB")
 	private String picByte;
 
 	@OneToOne(fetch = FetchType.LAZY)
