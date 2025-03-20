@@ -1,13 +1,13 @@
 package tech.getarray.employeemanager.controller;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tech.getarray.employeemanager.model.ImageModel;
 import tech.getarray.employeemanager.model.Permis;
 import tech.getarray.employeemanager.repository.PermisReposittory;
 
@@ -18,18 +18,19 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "permis")
 public class PermisController {
 
-    @Autowired
-    PermisReposittory permisReposittory;
+    private final PermisReposittory permisReposittory;
 
     @PostMapping("/upload")
     public ResponseEntity.BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
 
-        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+        log.info("Original Image Byte Size - " + file.getBytes().length);
 
 
         StringBuilder sb = new StringBuilder();
@@ -43,12 +44,12 @@ public class PermisController {
 
     @GetMapping("/getAllImages")
     public Iterable<Permis> getAll(){
-        System.out.println("A fost ceruta lista de imagini");
+        log.info("A fost ceruta lista de imagini");
 
         return this.permisReposittory.findAll();
     }
     @GetMapping(path = { "/get/{imageName}" })
-    public Permis getImage(@PathVariable("imageName") String imageName) throws IOException {
+    public Permis getImage(@PathVariable("imageName") String imageName) {
 
         final Optional<Permis> retrievedImage = permisReposittory.findByName(imageName);
         Permis img = new Permis(retrievedImage.get().getName(), retrievedImage.get().getType(),
@@ -57,7 +58,7 @@ public class PermisController {
     }
 
     // compress the image bytes before storing it in the database
-    public static byte[] compressZLib(byte[] data) {
+    public static byte[] compressZLib(byte[] data) throws IOException {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
         deflater.finish();
@@ -71,8 +72,9 @@ public class PermisController {
         try {
             outputStream.close();
         } catch (IOException e) {
+            throw new IOException();
         }
-        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+        log.info("Compressed Image Byte Size - " + outputStream.toByteArray().length);
 
         return outputStream.toByteArray();
     }

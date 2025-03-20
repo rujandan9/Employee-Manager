@@ -1,9 +1,10 @@
 package tech.getarray.employeemanager.controller;
 
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
@@ -21,23 +22,23 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping(path = "image")
 public class ImageUploadController {
 
-	@Autowired
-	ImageRepository imageRepository;
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
+	private final ImageRepository imageRepository;
+	private final EmployeeRepository employeeRepository;
 
 	@PostMapping("/upload/{imageType}/{idAngajat}")
 	public BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file,
 								   @PathVariable("imageType") String imageType,
 								   @PathVariable("idAngajat") int idAngajat) throws IOException {
 
-		System.out.println("Original Image Byte Size - " + file.getBytes().length);
+		log.info("Original Image Byte Size - " + file.getBytes().length);
 
 		Employee employee = this.employeeRepository.findById(idAngajat).get();
 		StringBuilder sb = new StringBuilder();
@@ -52,13 +53,13 @@ public class ImageUploadController {
 	}
 	@DeleteMapping("/{id}")
 	void deleteImage(@PathVariable("id") Long id) {
-		System.out.println("STERGE POZA ID: " + id);
+		log.info("STERGE POZA ID: " + id);
 		this.imageRepository.deleteById(id);
 	}
 
 	@GetMapping("/getAllImages")
 	public Iterable<ImageModel> getAll(){
-		System.out.println("A fost ceruta lista de imagini");
+		log.info("A fost ceruta lista de imagini");
 
 		return this.imageRepository.findAll();
 	}
@@ -87,7 +88,7 @@ public class ImageUploadController {
 			outputStream.close();
 		} catch (IOException e) {
 		}
-		System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+		log.info("Compressed Image Byte Size - " + outputStream.toByteArray().length);
 
 		return outputStream.toByteArray();
 	}

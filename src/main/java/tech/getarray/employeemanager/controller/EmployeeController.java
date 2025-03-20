@@ -1,30 +1,27 @@
 package tech.getarray.employeemanager.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tech.getarray.employeemanager.model.Employee;
 import tech.getarray.employeemanager.model.ImageModel;
 import tech.getarray.employeemanager.repository.EmployeeRepository;
 import tech.getarray.employeemanager.repository.ImageRepository;
 
-import java.util.Optional;
-
+@Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/rest")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final EmployeeRepository employeeRepository;
+    private final ImageRepository imageRepository;
 
     @GetMapping("/employee")
     public Iterable<Employee> getEventList(){
-        System.out.println("A fost ceruta lista de Employee");
+       log.info("A fost ceruta lista de Employee");
 
         return this.employeeRepository.findAll();
     }

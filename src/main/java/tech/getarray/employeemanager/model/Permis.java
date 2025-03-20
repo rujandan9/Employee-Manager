@@ -1,7 +1,14 @@
 package tech.getarray.employeemanager.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.persistence.*;
 
+
+@Getter
+@Setter
 @Entity
 @Table(name = "permis")
 public class Permis {
@@ -34,43 +41,4 @@ public class Permis {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getPicByte() {
-        return picByte;
-    }
-
-    public void setPicByte(String picByte) {
-        this.picByte = picByte;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
 }

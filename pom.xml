@@ -14,7 +14,7 @@
 	<name>employeemanager</name>
 	<description>Employee Manager App</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -90,7 +90,12 @@
 
 		<!-- /Spring Security -->
 
-
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.36</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
